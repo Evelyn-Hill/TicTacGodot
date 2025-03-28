@@ -11,3 +11,5 @@ jobs:
           godot-version: '4.4'
           godot-status: 'stable'
           paths: 'res://src/test'
+          publish-report: false
+          upload-report: false
