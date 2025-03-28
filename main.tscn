@@ -1,3 +1,8 @@
-[gd_scene format=3 uid="uid://umq5ut21p45"]
+[gd_scene load_steps=2 format=3 uid="uid://umq5ut21p45"]
+
+[ext_resource type="Script" uid="uid://nuwc2l8b0rqi" path="res://src/game.gd" id="1_ig7tw"]
 
 [node name="Main" type="Node"]
+
+[node name="game" type="Node" parent="."]
+script = ExtResource("1_ig7tw")
