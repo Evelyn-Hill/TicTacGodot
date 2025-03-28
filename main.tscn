@@ -1,8 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://umq5ut21p45"]
+[gd_scene load_steps=4 format=3 uid="uid://umq5ut21p45"]
 
-[ext_resource type="Script" uid="uid://nuwc2l8b0rqi" path="res://src/game.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://bpi7wkilprk68" path="res://src/Core/main.gd" id="1_h2yge"]
+[ext_resource type="Script" uid="uid://nuwc2l8b0rqi" path="res://src/Core/game.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://cluj1wu0yap1j" path="res://scenes/Render2D.tscn" id="2_0xm2m"]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_h2yge")
 
 [node name="game" type="Node" parent="."]
 script = ExtResource("1_ig7tw")
+
+[node name="Render2d" parent="." instance=ExtResource("2_0xm2m")]
+
+[node name="Camera2D" type="Camera2D" parent="."]

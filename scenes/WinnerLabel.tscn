@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://qdox1fdfc5e"]
+
+[ext_resource type="Script" uid="uid://8qh5jodtt777" path="res://src/UI/winner_label.gd" id="1_rtuc4"]
+
+[node name="WinnerLabel" type="Label"]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_rtuc4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

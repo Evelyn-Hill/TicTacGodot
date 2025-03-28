@@ -5,7 +5,6 @@ extends GdUnitTestSuite
 
 const __source = 'res://src/game.gd'
 
-
 func test_retrieve_square():
   var game : Game = Game.new()
   
@@ -27,60 +26,35 @@ func test_retrieve_square():
 
 func test_place_piece():
   var game : Game = Game.new()
+  game.my_game_state = Game.GameState.PLAYING
   game.place_piece(Vector2(0, 0), Square.Pieces.X)
   var check_result := game.board[Vector2i(0, 0)]
   assert_int(check_result.get_current_piece()).is_equal(Square.Pieces.X)
 
   game.free()
-
-
-func test_append_score_to_player():
-  var game : Game = Game.new()
-  var square : Square = Square.new(4)
-  
-  # Test X
-  square.set_current_piece(Square.Pieces.X)
-  game.append_score_to_player(square)
-  assert_int(game.xScore).is_equal(4)
-  assert_int(game.oScore).is_equal(0)
-  game.xScore = 0
-  
-  # Test O
-  square = Square.new(2)
-  square.set_current_piece(Square.Pieces.O)
-  game.append_score_to_player(square)
-  assert_int(game.oScore).is_equal(2)
-  assert_int(game.xScore).is_equal(0)
-  
-  game.xScore = 0
-  game.oScore = 0
-  
-  # Test NONE
-  square = Square.new(1)
-  game.append_score_to_player(square)
-  assert_int(game.oScore).is_equal(0)
-  assert_int(game.xScore).is_equal(0)
-  
-  game.free()
   
 func test_check_winner():
-  var game : Game = Game.new()
+  var winning_options : Array = [
+  [Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1)],
+  [Vector2i(-1, 0), Vector2i(0, 0), Vector2i(1, 0)],
+  [Vector2i(-1, 1), Vector2i(0, 1), Vector2i(1, 1)],
+  [Vector2i(-1, -1), Vector2i(-1, 0), Vector2i(-1, 1)],
+  [Vector2i(0, -1), Vector2i(0, 0), Vector2i(0, 1)],
+  [Vector2i(1, -1), Vector2i(1, 0), Vector2i(1, 1)],
+  [Vector2i(-1, -1), Vector2i(0, 0), Vector2i(1, 1)],
+  [Vector2i(-1, 1), Vector2i(0, 0), Vector2i(1, -1)],
+  ]
   
-  # Test X
-  game.xScore = 15
-  var result := game.check_winner()
-  assert_int(result).is_equal(1)
-  game.xScore = 0
+  for array in winning_options:
+    var game : Game = Game.new()
+    game.my_game_state = Game.GameState.PLAYING
+    for vector in array:
+      game.place_piece(vector, Square.Pieces.X)
+    
+    var winner : Square.Pieces = game.check_winner()
+    assert_int(winner).is_equal(1)
+    game.free()
+      
   
-  # TestO
-  game.oScore = 15
-  result = game.check_winner()
-  assert_int(result).is_equal(2)
   
-  # Test None
-  game.oScore = 0
-  result = game.check_winner()
-  assert_int(result).is_equal(0)
-  
-  game.free()
   
