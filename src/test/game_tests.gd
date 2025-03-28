@@ -33,3 +33,7 @@ func test_place_piece():
   assert_str(check_result).is_equal("x")
 
   game.free()
+
+func test_purpose_fail():
+  var i = 1
+  assert_int(i).is_equal(0)
