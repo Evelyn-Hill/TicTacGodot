@@ -8,24 +8,31 @@ var my_grid_position : Vector2i
 
 func _ready() -> void:
   %MouseDetectionArea.input_event.connect(handle_input_event)
+  %MouseDetectionArea.mouse_entered.connect(func(): Input.set_default_cursor_shape(Input.CURSOR_POINTING_HAND))
+  %MouseDetectionArea.mouse_exited.connect(func(): Input.set_default_cursor_shape(Input.CURSOR_ARROW))
 
-func handle_input_event(viewport : Node, event: InputEvent, shape_idx: int) -> void:
+func handle_input_event(_viewport : Node, event: InputEvent, _shape_idx: int) -> void:
   if event is InputEventMouseButton:
     var e : InputEventMouseButton = event as InputEventMouseButton
     if e.is_action_pressed("click_square"):
+
       var input_packet: InputPacket = InputPacket.new(my_grid_position)
       SignalBus.input_event.emit(input_packet)
     
 
 func set_render_state(state : Square.Pieces):  
+  enable_visual(state)
   my_state = state
-  enable_visual(my_state)
-
-func enable_visual(render_state : Square.Pieces):
-  if my_state == Square.Pieces.X:
+  
+func enable_visual(state : Square.Pieces):
+  if state == my_state:
+    return
+  if state == Square.Pieces.X:
     %GreenDiamond.visible = true
-  elif my_state == Square.Pieces.O:
+    %AnimationPlayer.play("GreenDiamondFlyIn")
+  elif state == Square.Pieces.O:
     %PurplePolygon.visible = true
+    %AnimationPlayer2.play("PurplePolygonFlyIn")
   else:
     %PurplePolygon.visible = false
     %GreenDiamond.visible = false

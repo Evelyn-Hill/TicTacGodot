@@ -35,11 +35,10 @@ enum GameState {
 var my_game_state : GameState = GameState.NONE
 
 func _ready() -> void:
+  my_game_state = GameState.PLAYING
   SignalBus.game_state_updated.emit(self)
   SignalBus.input_event.connect(_consume_input)
   
-  my_game_state = GameState.PLAYING
-
 func _consume_input(input_packet : InputPacket):
   place_piece(input_packet.position, current_turn)
 
@@ -84,7 +83,7 @@ func check_winner() -> Square.Pieces:
     elif pieces.count(Square.Pieces.O) == 3:
       return Square.Pieces.O
       
-  var accum : int
+  var accum : int = 0
   for key in board:
     if board[key].current_piece != Square.Pieces.NONE:
       accum += 1
@@ -107,3 +106,7 @@ func next_player_turn() -> Square.Pieces:
     return Square.Pieces.X
   
   return current_turn
+
+func destroy_self() -> void:
+  my_game_state = GameState.NONE
+  SignalBus.game_state_updated.emit(self)

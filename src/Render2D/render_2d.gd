@@ -12,11 +12,23 @@ func _enter_tree() -> void:
   SignalBus.game_state_updated.connect(consume_state)
 
 func consume_state(game : Game):
+  
+  if game.my_game_state == Game.GameState.NONE:
+    for square in render_squares:
+      render_squares[square].queue_free()
+    
+    render_squares.clear()  
+    return
+    
+  
   if render_squares.is_empty():
+    %Camera2D.make_current()
     generate_board(game.board)
     instantiate_board(render_squares)
   else:
     update_board(game.board)
+  
+  
   
 func generate_board(board : Dictionary[Vector2i, Square]) -> void:
   for key in board:

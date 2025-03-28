@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://bj740ofr4lg7r"]
+
+[ext_resource type="Theme" uid="uid://68n6tldftlhk" path="res://assets/UIThemes/TicTacToeTheme.tres" id="1_ow34m"]
+[ext_resource type="Script" uid="uid://58o64tn4q1im" path="res://src/UI/menu.gd" id="2_l72w3"]
+[ext_resource type="Script" uid="uid://bgh5e2lwhsloc" path="res://src/UI/start_game_button.gd" id="3_826wr"]
+[ext_resource type="Script" uid="uid://ouu7stmheegw" path="res://src/UI/quit_button.gd" id="4_ucygd"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+process_mode = 3
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_ow34m")
+script = ExtResource("2_l72w3")
+
+[node name="Label" type="Label" parent="Menu"]
+layout_mode = 0
+offset_left = 575.0
+offset_top = 108.0
+offset_right = 1334.0
+offset_bottom = 316.0
+theme_override_constants/outline_size = 60
+theme_override_font_sizes/font_size = 128
+text = "Tic-Tac-Godot"
+
+[node name="CenterContainer" type="CenterContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/CenterContainer"]
+layout_mode = 2
+
+[node name="StartGame" type="Button" parent="Menu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 72
+text = "Start Game"
+script = ExtResource("3_826wr")
+
+[node name="Quit" type="Button" parent="Menu/CenterContainer/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 48
+text = "Quit"
+script = ExtResource("4_ucygd")
